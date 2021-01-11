@@ -28,13 +28,12 @@ class RegisterForm(UserCreationForm):
             'placeholder': 'johndoe@example.com',
             'id': 'username'
         }))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={
-            'class': 'input',
-            'placeholder': '',
-            'id': 'password',
-        }))
+
+    def __init__(self, *args, **kwargs):
+        super(RegisterForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs['class'] = 'input'
+        self.fields['password2'].widget.attrs['class'] = 'input'
 
     class Meta:
         model = Hitman
-        fields = ["email", "password"]
+        fields = ["email"]
