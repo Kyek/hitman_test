@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<form action="{% url 'register' %}" method="post" novalidate>
+  {% csrf_token %}
+  <div class="field">
+    <label class="label" for="{{ form.email.id_for_label }}">Email</label>
+    <div class="control has-icons-right">{{ form.email }}</div>
+  </div>
+  <div class="field">
+    <label class="label" for="{{ form.password.id_for_label }}">Password</label>
+    <div class="control has-icons-right">{{ form.password }}</div>
+  </div>
+  <div class="field">
+    <p class="control">
+      <input type="submit" value="Submit" class="button is-success" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </p>
+  </div>
+</form>
+{% endblock %}

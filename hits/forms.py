@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.password_validation import validate_password
 from .models import Hitman
 
 class LoginForm(AuthenticationForm):
@@ -17,11 +18,11 @@ class LoginForm(AuthenticationForm):
             'class': 'input',
             'placeholder': '',
             'id': 'password',
-        }))
+        }), validators=[validate_password])
 
 
-class RegisterForm(forms.ModelForm):
-    username = forms.EmailField(widget=forms.TextInput(
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(widget=forms.TextInput(
         attrs={
             'class': 'input',
             'placeholder': 'johndoe@example.com',
