@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<form action="{% url 'hits-create' %}" method="post">
+  {% csrf_token %}
+  <div class="field">
+    <label class="label" for="{{ form.description.id_for_label }}">Description</label>
+    <div class="control has-icons-right">
+      {{ form.description }}
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+      {% if form.errors.description %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.description %} {% for error in form.description.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  <div class="field">
+    <label class="label" for="{{ form.target_name.id_for_label }}">Target Name</label>
+    <div class="control has-icons-left has-icons-right">
+      {{ form.target_name }}
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+      {% if form.errors.target_name %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.target_name %}
+    {% for error in form.target_name.errors %}
+      <p class="help is-danger">{{ error }}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="field">
+    <label class="label" for="{{ form.asignee.id_for_label }}">asignee</label>
+    <div class="control has-icons-left has-icons-right">
+      {{ form.asignee }}
+      <span class="icon is-small is-left">
+        <i class="fas fa-envelope"></i>
+      </span>
+      {% if form.errors.asignee %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.asignee %}
+    {% for error in form.asignee.errors %}
+      <p class="help is-danger">{{ error }}</p>
+    {% endfor %}
+    {% endif %}
+  </div>
+</form>

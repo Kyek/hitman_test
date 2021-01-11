@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.password_validation import validate_password
-from .models import Hitman
+from .models import Hitman, Hit
+
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -37,3 +38,15 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = Hitman
         fields = ["email"]
+
+
+class HitForm(forms.ModelForm):
+    asignee = forms.ModelChoiceField()
+
+    def __init__(self, queryset, *args, **kwargs):
+        self.asignee.queryset = queryset
+        super(HitForm, self).__init__(*args, **kwargs)
+
+    class Meta:
+        model = Hit
+        fields = ["description", "target_name", "asignee"]
