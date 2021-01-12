@@ -41,12 +41,10 @@ class RegisterForm(UserCreationForm):
 
 
 class HitForm(forms.ModelForm):
-    asignee = forms.ModelChoiceField(None)
-
-    def __init__(self, queryset, *args, **kwargs):
-        self.asignee.queryset = queryset
-        super(HitForm, self).__init__(*args, **kwargs)
-
     class Meta:
         model = Hit
         fields = ["description", "target_name", "asignee"]
+
+    def save(self, **kwargs):
+        self.instance.created_by = kwargs["created_by"]
+        return super(HitForm, self).save()

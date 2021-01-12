@@ -24,5 +24,5 @@ urlpatterns = [
     path("register", signup_view, name="register"),
     path("logout", logout, name="logout"),
     path("hits/create", hits_create_view, name="hits-create"),
-    path("hits", hit_list_view, name="hits-list"),
+    path("hits/", hit_list_view, name="hits-list"),
 ]
