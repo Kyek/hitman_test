@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Hitman</th>
+      <th>Is Active</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for hitman in hitmen %}
+      <tr>
+          <td><a href="{% url 'hits-detail' hit.id %}">{{hitman.email}}</a></td>
+          <td>{{hitman.is_active}}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

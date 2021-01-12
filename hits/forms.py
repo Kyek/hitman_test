@@ -70,9 +70,9 @@ class HitDetailForm(forms.ModelForm):
             field.widget.attrs["disabled"] = "disabled"
             field.widget.attrs["class"] = "input"
         del (self.fields["status"].widget.attrs["disabled"])
-        if user.is_manager or user.is_superuser:
-            if self.instance.status == "A":
+        if self.instance.status == "A":
+            if user.is_manager or user.is_superuser:
                 del (self.fields["asignee"].widget.attrs["disabled"])
-            else:
-                self.fields["status"].choices = (("C", "Completed"),
-                                                 ("F", "Failed"))
+        else:
+            self.fields["status"].choices = (("C", "Completed"), ("F",
+                                                                  "Failed"))

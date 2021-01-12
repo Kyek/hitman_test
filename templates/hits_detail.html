@@ -94,7 +94,7 @@
         name="{{ form.created_by.name }}"
         value="{{ form.created_by.value }}"
       />
-      {% if form.instance.status != "A" %}
+      {% if form.instance.status != "A" or not_manager%}
       <input
         type="hidden"
         name="{{ form.asignee.name }}"

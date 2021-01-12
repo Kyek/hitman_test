@@ -91,7 +91,12 @@ def hit_detail(request, pk: int):
             hit_u = form.save()
             print(hit_u)
             return redirect(reverse_lazy("hits-list") + "?message=succ_up_h")
-    return render(request, "hits_detail.html", {"form": form, "pk": pk})
+    return render(
+        request, "hits_detail.html", {
+            "form": form,
+            "pk": pk,
+            "not_manager": not (user.is_manager or user.is_superuser)
+        })
 
 
 class CustomLoginView(views.LoginView):
