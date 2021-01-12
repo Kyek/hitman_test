@@ -6,6 +6,7 @@ from django.views.generic import CreateView
 from django.views.generic.edit import ModelFormMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 
 from .models import Hitman, Hit
 from .forms import LoginForm, RegisterForm, HitForm
@@ -38,17 +39,22 @@ def hits_create_view(request):
             form = HitForm(request.POST)
             if form.is_valid():
                 form.save(created_by=request.user)
+                return redirect(reverse_lazy("hits-list") + "?message=success")
         else:
-            hitmen = user.hitmen.all() if user.is_manager else Hitman.objects.all(
-            ).exclude(user)
-            form = HitForm(queryset=hitmen)
+            hitmen = user.hitmen.all(
+            ) if user.is_manager else Hitman.objects.all().exclude(
+                email=user.email)
+            form = HitForm()
+            form.fields["asignee"].queryset = hitmen
         return render(request, 'hits_base.html', {"form": form})
     else:
-        return HttpResponseForbidden()
+        raise PermissionDenied
 
 
 @login_required(login_url=reverse_lazy("login"))
 def hit_list_view(request):
+    messages = {"succ_hit": "The hit was created successfully"}
+    message = request.GET.get("message", None)
     user = request.user
     if user.is_superuser:
         hits = Hit.objects.all()
@@ -56,7 +62,10 @@ def hit_list_view(request):
         hits = Hit.objects.filter(asignee__in=user.hitmen)
     else:
         hits = user.hits.all()
-    return render(request, "hits_list.html", {"hits": hits})
+    for_render = {"hits": hits}
+    if message is not None:
+        for_render.update({"message": messages.get(messages, None)})
+    return render(request, "hits_list.html", for_render)
 
 
 class CustomLoginView(views.LoginView):
