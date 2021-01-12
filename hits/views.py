@@ -1,15 +1,16 @@
-from django.contrib.auth import views, logout as do_logout, login, authenticate
-from django.shortcuts import redirect, render
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout as do_logout
+from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic.edit import ModelFormMixin
-from django.urls import reverse_lazy
-from django.http import HttpResponseForbidden
-from django.core.exceptions import PermissionDenied
 
-from .models import Hitman, Hit
-from .forms import LoginForm, RegisterForm, HitForm
+from .forms import HitForm, LoginForm, RegisterForm
+from .models import Hit, Hitman
 
 
 def logout(request):
@@ -39,11 +40,12 @@ def hits_create_view(request):
             form = HitForm(request.POST)
             if form.is_valid():
                 form.save(created_by=request.user)
-                return redirect(reverse_lazy("hits-list") + "?message=success")
+                return redirect(
+                    reverse_lazy("hits-list") + "?message=succ_hit")
         else:
             hitmen = user.hitmen.all(
             ) if user.is_manager else Hitman.objects.all().exclude(
-                email=user.email)
+                email=user.email, is_active=False)
             form = HitForm()
             form.fields["asignee"].queryset = hitmen
         return render(request, 'hits_base.html', {"form": form})
@@ -59,13 +61,18 @@ def hit_list_view(request):
     if user.is_superuser:
         hits = Hit.objects.all()
     elif user.is_manager:
-        hits = Hit.objects.filter(asignee__in=user.hitmen)
+        hits = Hit.objects.filter(asignee__in=user.hitmen.all()).union(user.hits.all())
     else:
         hits = user.hits.all()
     for_render = {"hits": hits}
     if message is not None:
-        for_render.update({"message": messages.get(messages, None)})
+        for_render.update({"message": messages.get(message, None)})
     return render(request, "hits_list.html", for_render)
+
+
+@login_required(login_url=reverse_lazy("login"))
+def hit_detail(request, id: int):
+    pass
 
 
 class CustomLoginView(views.LoginView):

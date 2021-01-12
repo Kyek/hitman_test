@@ -14,12 +14,13 @@ class LoginForm(AuthenticationForm):
             'placeholder': 'johndoe@example.com',
             'id': 'username'
         }))
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
             'class': 'input',
             'placeholder': '',
             'id': 'password',
-        }), validators=[validate_password])
+        }),
+        validators=[validate_password])
 
 
 class RegisterForm(UserCreationForm):
@@ -45,6 +46,19 @@ class HitForm(forms.ModelForm):
         model = Hit
         fields = ["description", "target_name", "asignee"]
 
+    def __init__(self, *args, **kwargs):
+        super(HitForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "input"
+
     def save(self, **kwargs):
         self.instance.created_by = kwargs["created_by"]
         return super(HitForm, self).save()
+
+
+class HitDetailForm(forms.ModelForm):
+    class Meta:
+        model = Hit
+        fields = [
+            "description", "target_name", "asignee", "created_by", "status"
+        ]

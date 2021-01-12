@@ -5,9 +5,6 @@
     <label class="label" for="{{ form.description.id_for_label }}">Description</label>
     <div class="control has-icons-right">
       {{ form.description }}
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
       {% if form.errors.description %}
       <span class="icon is-small is-right">
         <i class="fas fa-exclamation-triangle"></i>
@@ -21,11 +18,8 @@
 
   <div class="field">
     <label class="label" for="{{ form.target_name.id_for_label }}">Target Name</label>
-    <div class="control has-icons-left has-icons-right">
+    <div class="control has-icons-right">
       {{ form.target_name }}
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
       {% if form.errors.target_name %}
       <span class="icon is-small is-right">
         <i class="fas fa-exclamation-triangle"></i>
@@ -41,11 +35,8 @@
 
   <div class="field">
     <label class="label" for="{{ form.asignee.id_for_label }}">asignee</label>
-    <div class="control has-icons-left has-icons-right">
+    <div class="control has-icons-right">
       {{ form.asignee }}
-      <span class="icon is-small is-left">
-        <i class="fas fa-envelope"></i>
-      </span>
       {% if form.errors.asignee %}
       <span class="icon is-small is-right">
         <i class="fas fa-exclamation-triangle"></i>
