@@ -55,7 +55,10 @@ def hits_create_view(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def hit_list_view(request):
-    messages = {"succ_hit": "The hit was created successfully"}
+    messages = {
+        "succ_hit": "The hit was created successfully",
+        "succ_up_h": "The hit was updated successfully"
+    }
     message = request.GET.get("message", None)
     user = request.user
     if user.is_superuser:
@@ -65,10 +68,27 @@ def hit_list_view(request):
             user.hits.all())
     else:
         hits = user.hits.all()
-    for_render = {"hits": hits}
+    context = {"hits": hits}
     if message is not None:
-        for_render.update({"message": messages.get(message, None)})
-    return render(request, "hits_list.html", for_render)
+        context.update({"message": messages.get(message, None)})
+    return render(request, "hits_list.html", context)
+
+
+@login_required(login_url=reverse_lazy("login"))
+def hitmen_list_view(request):
+    messages = {"succ_hit": "The hitman was updated successfully"}
+    message = messages.get(request.GET.get("message", None), None)
+    user = request.user
+    if user.is_superuser or user.is_manager:
+        hitmen = Hitman.objects.all()
+        if user.is_manager:
+            hitmen = user.hitmen.all()
+        context = {"hitmen": hitmen}
+        if message is not None:
+            context.update({"message": message})
+        return render(request, "hitmen_list.html", context)
+    else:
+        raise PermissionDenied
 
 
 @login_required(login_url=reverse_lazy("login"))

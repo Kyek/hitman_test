@@ -23,9 +23,11 @@
       {% if user.is_authenticated %}
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="{% url 'hits-list' %}"> Home </a>
+          <a class="navbar-item" href="{% url 'hits-list' %}"> Hits </a>
 
-          <a class="navbar-item"> Documentation </a>
+          {% if user.is_manager or user.is_superuser %}
+          <a class="navbar-item" href="{% url 'hitmen-list' %}"> Hitmen </a>
+          {% endif %}
         </div>
         {% endif %}
 
