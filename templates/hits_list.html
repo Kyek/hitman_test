@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th><abbr title="Target name">Trgt</abbr></th>
+      <th><abbr title="Description">Des</abbr></th>
+      <th><abbr title="Asignee">Asgn</abbr></th>
+      <th><abbr title="Status">Stat</abbr></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for hit in hits %}
+      <tr>
+          <td>{{hit.target_name}}</td>
+          <td>{{hit.description}}</td>
+          <td>{{hit.asignee}}</td>
+          <td>{{hit.status}}</td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

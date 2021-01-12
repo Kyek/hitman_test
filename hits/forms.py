@@ -41,7 +41,7 @@ class RegisterForm(UserCreationForm):
 
 
 class HitForm(forms.ModelForm):
-    asignee = forms.ModelChoiceField()
+    asignee = forms.ModelChoiceField(None)
 
     def __init__(self, queryset, *args, **kwargs):
         self.asignee.queryset = queryset
