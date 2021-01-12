@@ -11,7 +11,7 @@
   <tbody>
       {% for hit in hits %}
       <tr>
-          <td>{{hit.target_name}}</td>
+          <td><a href="{% url 'hits-detail' hit.id %}">{{hit.target_name}}</a></td>
           <td>{{hit.description}}</td>
           <td>{{hit.asignee}}</td>
           <td>{{hit.status}}</td>

@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic.edit import ModelFormMixin
 
-from .forms import HitForm, LoginForm, RegisterForm
+from .forms import HitForm, LoginForm, RegisterForm, HitDetailForm
 from .models import Hit, Hitman
 
 
@@ -61,7 +61,8 @@ def hit_list_view(request):
     if user.is_superuser:
         hits = Hit.objects.all()
     elif user.is_manager:
-        hits = Hit.objects.filter(asignee__in=user.hitmen.all()).union(user.hits.all())
+        hits = Hit.objects.filter(asignee__in=user.hitmen.all()).union(
+            user.hits.all())
     else:
         hits = user.hits.all()
     for_render = {"hits": hits}
@@ -71,8 +72,26 @@ def hit_list_view(request):
 
 
 @login_required(login_url=reverse_lazy("login"))
-def hit_detail(request, id: int):
-    pass
+def hit_detail(request, pk: int):
+    user = request.user
+    hit = Hit.objects.get(pk=pk)
+    if user.is_superuser:
+        queryset = Hitman.objects.filter(is_active=True).exclude(
+            email=user.email)
+    else:
+        queryset = user.hitmen.all()
+    if request.method == "GET":
+        form = HitDetailForm(user=user, queryset=queryset, instance=hit)
+    else:
+        form = HitDetailForm(request.POST,
+                             user=user,
+                             queryset=queryset,
+                             instance=hit)
+        if form.is_valid():
+            hit_u = form.save()
+            print(hit_u)
+            return redirect(reverse_lazy("hits-list") + "?message=succ_up_h")
+    return render(request, "hits_detail.html", {"form": form, "pk": pk})
 
 
 class CustomLoginView(views.LoginView):

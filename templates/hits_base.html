@@ -34,8 +34,8 @@
   </div>
 
   <div class="field">
-    <label class="label" for="{{ form.asignee.id_for_label }}">asignee</label>
-    <div class="control has-icons-right">
+    <label class="label" for="{{ form.asignee.id_for_label }}">Asignee</label>
+    <div class="control has-icons-right select">
       {{ form.asignee }}
       {% if form.errors.asignee %}
       <span class="icon is-small is-right">
@@ -51,7 +51,7 @@
   </div>
   <div class="field">
     <p class="control">
-      <input type="submit" value="Create Hitman" class="button is-success" />
+      <input type="submit" value="Create Hit" class="button is-success" />
     </p>
   </div>
 </form>

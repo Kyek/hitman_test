@@ -49,7 +49,8 @@ class HitForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HitForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs["class"] = "input"
+            if field.label != "Asignee":
+                field.widget.attrs["class"] = "input"
 
     def save(self, **kwargs):
         self.instance.created_by = kwargs["created_by"]
@@ -62,3 +63,16 @@ class HitDetailForm(forms.ModelForm):
         fields = [
             "description", "target_name", "asignee", "created_by", "status"
         ]
+
+    def __init__(self, *args, user: Hitman, queryset=None, **kwargs):
+        super(HitDetailForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["disabled"] = "disabled"
+            field.widget.attrs["class"] = "input"
+        del (self.fields["status"].widget.attrs["disabled"])
+        if user.is_manager or user.is_superuser:
+            if self.instance.status == "A":
+                del (self.fields["asignee"].widget.attrs["disabled"])
+            else:
+                self.fields["status"].choices = (("C", "Completed"),
+                                                 ("F", "Failed"))
