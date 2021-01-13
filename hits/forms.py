@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.password_validation import validate_password
-from .models import Hitman, Hit
+
+from .models import Hit, Hitman
 
 
 class LoginForm(AuthenticationForm):
@@ -65,7 +66,6 @@ class HitmanDetailForm(forms.ModelForm):
                 field.widget.attrs["class"] = "checkbox"
 
 
-
 class HitForm(forms.ModelForm):
     asignee = forms.ModelChoiceField(queryset=Hitman.objects.filter(
         is_active=True))
@@ -80,8 +80,12 @@ class HitForm(forms.ModelForm):
             if field.label != "Asignee":
                 field.widget.attrs["class"] = "input"
 
-        self.fields["asignee"].queryset = Hitman.objects.filter(
-            is_active=True).exclude(is_superuser=True, email=user.email)
+        if user.is_superuser:
+            queryset = Hitman.objects.filter(is_active=True).exclude(
+                is_superuser=True)
+        else:
+            queryset = user.hitmen.all()
+        self.fields["asignee"].queryset = queryset
 
     def save(self, **kwargs):
         self.instance.created_by = kwargs["created_by"]

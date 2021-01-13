@@ -31,7 +31,7 @@ services:
       - db
   hits:
     environment:
-      - DEBUG=False
+      - DEBUG=True
       - ALLOWED_HOSTS=*
       - DATABASE_URL=psql://postgres:postgres@db:5432/postgres
       - PYTHONUNBUFFERED=1
