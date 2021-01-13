@@ -31,6 +31,10 @@ class RegisterForm(UserCreationForm):
             'id': 'username'
         }))
 
+    class Meta:
+        model = Hitman
+        fields = ["email", "password1", "password2"]
+
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs['class'] = 'input'
