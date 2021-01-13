@@ -9,7 +9,7 @@
   <tbody>
       {% for hitman in hitmen %}
       <tr>
-          <td><a href="{% url 'hits-detail' hitman.id %}">{{hitman.email}}</a></td>
+          <td><a href="{% url 'hitmen-detail' hitman.id %}">{{hitman.email}}</a></td>
           <td>{{hitman.is_active}}</td>
       </tr>
       {% endfor %}

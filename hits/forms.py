@@ -36,21 +36,37 @@ class RegisterForm(UserCreationForm):
         self.fields['password1'].widget.attrs['class'] = 'input'
         self.fields['password2'].widget.attrs['class'] = 'input'
 
+
+class HitmanDetailForm(forms.ModelForm):
     class Meta:
         model = Hitman
-        fields = ["email"]
+        fields = ["name", "email", "description", "is_active", "hitmen"]
+
+    def __init__(self, *args, user: Hitman, **kwargs):
+        super(HitmanDetailForm, self).__init__(*args, **kwargs)
+        if user.is_manager:
+            del (self.fields["hitmen"])
+        if not self.instance.is_active:
+            self.fields["is_active"].widget.attrs["disabled"] = "disabled"
+        self.fields["hitmen"].queryset = Hitman.objects.filter(
+            is_active=True).exclude(email__in=[user.email, self.instance.email])
+        self.fields["hitmen"].required = False
 
 
 class HitForm(forms.ModelForm):
+    asignee = forms.ModelChoiceField(queryset=Hitman.objects.filter(is_active=True))
+
     class Meta:
         model = Hit
         fields = ["description", "target_name", "asignee"]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user: Hitman, **kwargs):
         super(HitForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             if field.label != "Asignee":
                 field.widget.attrs["class"] = "input"
+
+        self.fields["asignee"].queryset = Hitman.objects.filter(is_active=True).exclude(is_superuser=True, email=user.email)
 
     def save(self, **kwargs):
         self.instance.created_by = kwargs["created_by"]

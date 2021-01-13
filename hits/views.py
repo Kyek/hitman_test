@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic.edit import ModelFormMixin
 
-from .forms import HitForm, LoginForm, RegisterForm, HitDetailForm
+from .forms import HitForm, LoginForm, RegisterForm, HitDetailForm, HitmanDetailForm
 from .models import Hit, Hitman
 
 
@@ -37,17 +37,13 @@ def hits_create_view(request):
     user = request.user
     if user.is_manager or user.is_superuser:
         if request.method == "POST":
-            form = HitForm(request.POST)
+            form = HitForm(request.POST, user=user)
             if form.is_valid():
                 form.save(created_by=request.user)
                 return redirect(
                     reverse_lazy("hits-list") + "?message=succ_hit")
         else:
-            hitmen = user.hitmen.all(
-            ) if user.is_manager else Hitman.objects.all().exclude(
-                email=user.email, is_active=False)
-            form = HitForm()
-            form.fields["asignee"].queryset = hitmen
+            form = HitForm(user=user)
         return render(request, 'hits_base.html', {"form": form})
     else:
         raise PermissionDenied
@@ -89,6 +85,29 @@ def hitmen_list_view(request):
         return render(request, "hitmen_list.html", context)
     else:
         raise PermissionDenied
+
+
+@login_required(login_url=reverse_lazy("login"))
+def hitmen_detail(request, pk: int):
+    user = request.user
+    if user.is_superuser or user.is_manager:
+        hitman = Hitman.objects.get(pk=pk)
+        if request.method == "GET":
+            form = HitmanDetailForm(user=user, instance=hitman)
+        else:
+            form = HitmanDetailForm(request.POST, user=user, instance=hitman)
+            if form.is_valid():
+                form.save()
+                return redirect(
+                    reverse_lazy("hitmen-list") + "?message=succ_hit")
+    else:
+        raise PermissionDenied
+    return render(
+        request, "hitmen_detail.html", {
+            "form": form,
+            "pk": pk,
+            "not_manager": not (user.is_manager or user.is_superuser)
+        })
 
 
 @login_required(login_url=reverse_lazy("login"))
