@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-from typing import List
 from pathlib import Path
 import environ
 
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, True),
                   DATABASE_URL=(str, "sqlite:///" +
                                 os.path.join(BASE_DIR, "db.sqlite3")),
-                  ALLOWED_HOSTS=(List[str], ["*"]))
+                  ALLOWED_HOSTS=(list, []))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 

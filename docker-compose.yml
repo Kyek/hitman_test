@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin4@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+  init:
+    environment:
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
+      - DATABASE_URL=psql://postgres:postgres@db:5432/postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - PGPASSWORD=postgres
+    build:
+      context: .
+      dockerfile: docker/init/Dockerfile
+    depends_on:
+      - db
+  hits:
+    environment:
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
+      - DATABASE_URL=psql://postgres:postgres@db:5432/postgres
+      - PYTHONUNBUFFERED=1
+    build:
+      context: .
+      dockerfile: docker/hits/Dockerfile
+    volumes: 
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - init
