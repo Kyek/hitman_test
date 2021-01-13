@@ -1,0 +1,249 @@
+[
+  {
+    "model": "hits.hitman",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T02:18:30.738Z",
+      "is_superuser": true,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-13T02:18:30.621Z",
+      "name": "The Boss",
+      "description": "The Boss",
+      "email": "the.boss@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": null,
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T01:49:18.943Z",
+      "name": "Benedict Miller",
+      "description": "Second in Command",
+      "email": "kaz.miller@outerheaven.com",
+      "is_manager": true,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": [5, 6, 7]
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:18:36.036Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T01:51:04.304Z",
+      "name": "Adamska",
+      "description": "Ocelot",
+      "email": "revolver.ocelot@outerheaven.com",
+      "is_manager": true,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": [8, 9, 10]
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Quiet",
+      "description": "Tixij",
+      "email": "quiet@outerheaven.com",
+      "is_manager": true,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": [11, 12, 13]
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Stone Mastodon",
+      "description": "",
+      "email": "stone.mastodon@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Gray Wallaby",
+      "description": "",
+      "email": "gray.wallaby@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Wild Platypus",
+      "description": "",
+      "email": "wild.platypus@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Devil Squirrel",
+      "description": "",
+      "email": "devil.squirrel@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Jackal",
+      "description": "",
+      "email": "jackal@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Sunny Buzzard",
+      "description": "",
+      "email": "sunny.buzzard@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Panzer Buffalo",
+      "description": "",
+      "email": "panzer.buffalo@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Killer Hedgehog",
+      "description": "",
+      "email": "killer.hedgehog@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  },
+  {
+    "model": "hits.hitman",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$jTVREiyjyWuj$Fg4Sl1oKDn3DAvrp6FcxORjALE3Io+26OYcIDO/7Zr8=",
+      "last_login": "2021-01-13T00:28:00.643Z",
+      "is_superuser": false,
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-11T04:55:16.379Z",
+      "name": "Ashen Stallion",
+      "description": "",
+      "email": "ashen.stallion@outerheaven.com",
+      "is_manager": false,
+      "groups": [],
+      "user_permissions": [],
+      "hitmen": []
+    }
+  }
+]
