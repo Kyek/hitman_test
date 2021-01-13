@@ -3,7 +3,8 @@ from django.contrib.auth import logout as do_logout
 from django.contrib.auth import views
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import redirect, render
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.views.generic.edit import ModelFormMixin
@@ -116,7 +117,10 @@ def hitmen_detail(request, pk: int):
 @login_required(login_url=reverse_lazy("login"))
 def hit_detail(request, pk: int):
     user = request.user
-    hit = Hit.objects.get(pk=pk)
+    hit = get_object_or_404(Hit, pk=pk)
+    if hit.asignee.email != user.email and hit.asignee not in user.hitmen.all(
+    ) and not user.is_superuser:
+        raise Http404("Hit does not exist")
     if user.is_superuser:
         queryset = Hitman.objects.filter(is_active=True).exclude(
             email=user.email)
