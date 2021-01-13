@@ -97,7 +97,10 @@ def hitmen_detail(request, pk: int):
         else:
             form = HitmanDetailForm(request.POST, user=user, instance=hitman)
             if form.is_valid():
-                form.save()
+                hitman: Hitman = form.save()
+                if hitman.hitmen.all().count() > 0:
+                    hitman.is_manager = True
+                    hitman.save()
                 return redirect(
                     reverse_lazy("hitmen-list") + "?message=succ_hit")
     else:
