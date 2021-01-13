@@ -65,7 +65,7 @@
   {% if user.is_superuser %}
   <div class="field">
     <label class="label" for="{{ form.hitmen.id_for_label }}">Hitmen</label>
-    <div class="control has-icons-right">
+    <div class="control has-icons-right select is-multiple">
       {{ form.hitmen }} {% if form.errors.hitmen %}
       <span class="icon is-small is-right">
         <i class="fas fa-exclamation-triangle"></i>

@@ -46,15 +46,25 @@ class HitmanDetailForm(forms.ModelForm):
         super(HitmanDetailForm, self).__init__(*args, **kwargs)
         if user.is_manager:
             del (self.fields["hitmen"])
+        else:
+            self.fields["hitmen"].queryset = Hitman.objects.filter(
+                is_active=True).exclude(
+                    email__in=[user.email, self.instance.email])
+            self.fields["hitmen"].required = False
+            self.fields["hitmen"].widget.attrs["class"] = "select is-multiple"
         if not self.instance.is_active:
             self.fields["is_active"].widget.attrs["disabled"] = "disabled"
-        self.fields["hitmen"].queryset = Hitman.objects.filter(
-            is_active=True).exclude(email__in=[user.email, self.instance.email])
-        self.fields["hitmen"].required = False
+        for field in self.fields.values():
+            if field.label != "Active":
+                field.widget.attrs["class"] = "input"
+            else:
+                field.widget.attrs["class"] = "checkbox"
+
 
 
 class HitForm(forms.ModelForm):
-    asignee = forms.ModelChoiceField(queryset=Hitman.objects.filter(is_active=True))
+    asignee = forms.ModelChoiceField(queryset=Hitman.objects.filter(
+        is_active=True))
 
     class Meta:
         model = Hit
@@ -66,7 +76,8 @@ class HitForm(forms.ModelForm):
             if field.label != "Asignee":
                 field.widget.attrs["class"] = "input"
 
-        self.fields["asignee"].queryset = Hitman.objects.filter(is_active=True).exclude(is_superuser=True, email=user.email)
+        self.fields["asignee"].queryset = Hitman.objects.filter(
+            is_active=True).exclude(is_superuser=True, email=user.email)
 
     def save(self, **kwargs):
         self.instance.created_by = kwargs["created_by"]
