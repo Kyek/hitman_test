@@ -15,15 +15,15 @@ from typing import List
 from pathlib import Path
 import environ
 
-environ.Env.read_env(".env")
 
+environ.Env.read_env(".env")
+BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, True),
                   DATABASE_URL=(str, "sqlite:///" +
                                 os.path.join(BASE_DIR, "db.sqlite3")),
                   ALLOWED_HOSTS=(List[str], ["*"]))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
