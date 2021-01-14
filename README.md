@@ -1,15 +1,22 @@
-# Installation
+# 1. Table of Contents
+- [1. Table of Contents](#1-table-of-contents)
+- [2. Installation](#2-installation)
+  - [2.1. Easy way](#21-easy-way)
+  - [2.2. Not so easy way](#22-not-so-easy-way)
+- [3. Usage](#3-usage)
+
+# 2. Installation
 There are two ways to get it up:
 1. The easy way
 2. The not so easy way
-## Easy way
+## 2.1. Easy way
 Just install Docker and run:
 ```bash
 docker compose-up
 ```
 Now you have all the dependencies, and the system up and running! You have a DB instance, a pgAdmin, because reasons, running on the port 5050
 and the app running on 8000.
-## Not so easy way
+## 2.2. Not so easy way
 You will need various tools installed on your computer.  
 First you must install pipenv because who uses only pip for dependencies on 2021?  
 In macOS, any distro and WSL the easiest way is to use pipx
@@ -31,7 +38,7 @@ Now I think you have everything to make this work, you only need to run the foll
 pipenv run python manage.py runserver
 ```
 This will start a server at port 8000.
-# Usage
+# 3. Usage
 The initial data has 9 hitmen, 3 managers and the one and only Boss. The Boss account is:
 ```
 usr: the.boss@outerheaven.com
