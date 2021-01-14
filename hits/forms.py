@@ -107,6 +107,7 @@ class HitDetailForm(forms.ModelForm):
         del (self.fields["status"].widget.attrs["disabled"])
         if self.instance.status == "A":
             if user.is_manager or user.is_superuser:
+                self.fields["asignee"].queryset = queryset
                 del (self.fields["asignee"].widget.attrs["disabled"])
         else:
             self.fields["status"].choices = (("C", "Completed"), ("F",

@@ -122,8 +122,7 @@ def hit_detail(request, pk: int):
     ) and not user.is_superuser:
         raise Http404("Hit does not exist")
     if user.is_superuser:
-        queryset = Hitman.objects.filter(is_active=True).exclude(
-            email=user.email)
+        queryset = Hitman.objects.all().exclude(email=user.email)
     else:
         queryset = user.hitmen.all()
     if request.method == "GET":
