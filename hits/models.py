@@ -28,6 +28,10 @@ class CustomUserManager(BaseUserManager):
 
 class Hitman(AbstractUser):
     username = None
+    first_name = None
+    last_name = None
+    name = models.CharField(max_length=256, blank=True, default="")
+    description = models.CharField(max_length=256, blank=True, default="")
     email = models.EmailField(_('email address'), unique=True)
     is_manager = models.BooleanField(default=False)
     hitmen = models.ManyToManyField(to="Hitman")

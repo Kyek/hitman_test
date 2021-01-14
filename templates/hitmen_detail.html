@@ -1,0 +1,87 @@
+{% extends "base.html" %} {% block content %}
+<form action="{% url 'hitmen-detail' pk %}" method="post" novalidate>
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="label" for="{{ form.name.id_for_label }}">Name</label>
+    <div class="control has-icons-right">
+      {{ form.name }} {% if form.errors.name %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.name %} {% for error in form.name.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  <div class="field">
+    <label class="label" for="{{ form.description.id_for_label }}"
+      >Description</label
+    >
+    <div class="control has-icons-right">
+      {{ form.description }} {% if form.errors.description %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.description %} {% for error in form.description.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  <div class="field">
+    <label class="label" for="{{ form.email.id_for_label }}">Email</label>
+    <div class="control has-icons-right">
+      {{ form.email }} {% if form.errors.email %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.email %} {% for error in form.email.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  <div class="field">
+    <label class="label" for="{{ form.is_active.id_for_label }}"
+      >Is Active</label
+    >
+    <div class="control has-icons-right">
+      {{ form.is_active }} {% if form.errors.is_active %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.is_active %} {% for error in form.is_active.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+
+  {% if user.is_superuser %}
+  <div class="field">
+    <label class="label" for="{{ form.hitmen.id_for_label }}">Hitmen</label>
+    <div class="control has-icons-right select is-multiple">
+      {{ form.hitmen }} {% if form.errors.hitmen %}
+      <span class="icon is-small is-right">
+        <i class="fas fa-exclamation-triangle"></i>
+      </span>
+      {% endif %}
+    </div>
+    {% if form.errors.hitmen %} {% for error in form.hitmen.errors %}
+    <p class="help is-danger">{{ error }}</p>
+    {% endfor %} {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="field">
+    <p class="control">
+      <input type="submit" value="Save" class="button is-success" />
+    </p>
+  </div>
+</form>
+{% endblock %}

@@ -23,9 +23,20 @@
       {% if user.is_authenticated %}
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="{% url 'hits-list' %}"> Home </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link"> Hits </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="{% url 'hits-list' %}"> List </a>
+              {% if user.is_manager or user.is_superuser %}
+              <a class="navbar-item" href="{% url 'hits-create' %}"> Create </a>
+              {% endif %}
+            </div>
 
-          <a class="navbar-item"> Documentation </a>
+          </div>
+
+          {% if user.is_manager or user.is_superuser %}
+          <a class="navbar-item" href="{% url 'hitmen-list' %}"> Hitmen </a>
+          {% endif %}
         </div>
         {% endif %}
 
